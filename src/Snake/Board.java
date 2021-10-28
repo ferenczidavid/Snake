@@ -89,6 +89,9 @@ public class Board extends JPanel implements KeyListener {
          *
          */
 
+        createFood();
+        createRocks();
+
 
 
         this.timer = new Timer(TD, (ActionEvent e) -> {
@@ -148,13 +151,39 @@ public class Board extends JPanel implements KeyListener {
 
      * *TODO : implement gameOver()
 
-     * *TODO : implement createRocks()
-
-     * *TODO : implement createFood()
-
      * *TODO : implement eatFood()
 
      */
+
+    public void createRocks() {
+        for (int i = 0; i <= this.ROCKS; i++) {
+            int r = (int) (Math.random() * (50));
+            this.rocksX[i] = r * this.SEGMENT_SIZE;
+            r = (int) (Math.random() * (50));
+            this.rocksY[i] = r * this.SEGMENT_SIZE;
+        }
+    }
+
+    public void createFood() {
+        boolean SpaceNotEmpty = true;
+        boolean StillGood = true;
+        int r = 0;
+
+        while (SpaceNotEmpty) {
+
+            r = (int) (Math.random() * (29));
+            this.foodX = r * this.SEGMENT_SIZE;
+            r = (int) (Math.random() * (29));
+            this.foodY = r * this.SEGMENT_SIZE;
+
+            for (int i = 0; i < this.size; i++) {
+                StillGood = this.x[i] == this.foodX && this.y[i] == this.foodY;
+            }
+
+            SpaceNotEmpty = StillGood;
+        }
+
+    }
 
 
     public void moveSnake() {

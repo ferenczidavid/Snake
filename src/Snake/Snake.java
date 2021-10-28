@@ -18,6 +18,7 @@ public class Snake extends JFrame {
     public Container c = getContentPane();
     public Timer timer;
     public int counter;
+    private Boolean activeGame = false;
 
     public Snake(String title) {
         super(title);
@@ -34,27 +35,31 @@ public class Snake extends JFrame {
         mNewGame.add(mi500x500);
 
         mi500x500.addActionListener((ActionEvent e) -> {
-            board = new Board();
-            c.add(board);
-            c.revalidate();
-            c.repaint();
-            board.requestFocusInWindow();
+            if(!activeGame) {
+                activeGame = true;
+                board = new Board();
+                c.add(board);
+                c.revalidate();
+                c.repaint();
+                board.requestFocusInWindow();
 
-            counter = 0;
+                counter = 0;
 
-            timer = new Timer(1000, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (!board.isAlive) {
-                        counter = 0;
-                    } else {
-                        counter++;
+                timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (!board.isAlive) {
+                            counter = 0;
+                        } else {
+                            counter++;
+                        }
+                        TimeDisplay.setText("    " + String.valueOf(counter));
+
                     }
-                    TimeDisplay.setText("    " + String.valueOf(counter));
+                });
+                timer.start();
+            }
 
-                }
-            });
-            timer.start();
         });
         mb.add(TimeDisplay);
     }
