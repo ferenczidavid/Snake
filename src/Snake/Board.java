@@ -8,8 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 
 public class Board extends JPanel implements KeyListener {
 
@@ -79,33 +78,21 @@ public class Board extends JPanel implements KeyListener {
             this.x[i] = 50 - i * this.SEGMENT_SIZE;
             this.y[i] = 50;
         }
-        /*
-        *TODO : call createFood();
-        *
-        */
-
-        /*
-         *TODO : call createRocks();
-         *
-         */
 
         createFood();
-        createRocks();
 
+        createRocks();
 
 
         this.timer = new Timer(TD, (ActionEvent e) -> {
             if (true) {
-                /*
-                TODO : call eatFood();
-                TODO : call Death();
-                 */
+
+                eatFood();
+                Death();
 
                 moveSnake();
                 if (!isAlive && !isSaved) {
-                    /*
-                    TODO : call gameOver();
-                     */
+                    gameOver();
 
                     isSaved = true;
                     setVisible(false);
@@ -145,15 +132,22 @@ public class Board extends JPanel implements KeyListener {
         }
 
     }
-    /*
 
-     * *TODO : implement msgbox()
 
-     * *TODO : implement gameOver()
+      private void msgbox(String s) {
+        JOptionPane.showMessageDialog(null, s);
+    }
 
-     * *TODO : implement eatFood()
+     private void gameOver() {
+        msgbox("Game over");
+    }
 
-     */
+     public void eatFood() {
+        if (this.x[0] == this.foodX && this.y[0] == this.foodY) {
+            this.size++;
+            createFood();
+        }
+    }
 
     public void createRocks() {
         for (int i = 0; i <= this.ROCKS; i++) {
@@ -209,6 +203,31 @@ public class Board extends JPanel implements KeyListener {
         }
     }
 
+    public void Death() {
+        for (int i = this.size; i > 0; i--) {
+            if (i > 4 && this.x[0] == this.x[i] && this.y[0] == this.y[i]) {
+                this.isAlive = false;
+            }
+        }
+
+        for (int i = 0; i <= this.ROCKS; i++) {
+            if (this.x[0] == this.rocksX[i] && this.y[0] == this.rocksY[i]) {
+                this.isAlive = false;
+            }
+        }
+
+        if (this.x[0] >= this.WIDTH || this.x[0] < 0) {
+            this.isAlive = false;
+        }
+
+        if (this.y[0] >= this.HEIGHT || this.y[0] < 0) {
+            this.isAlive = false;
+        }
+
+        if (!this.isAlive) {
+            timer.stop();
+        }
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
