@@ -18,7 +18,7 @@ public class Snake extends JFrame {
     public Container c = getContentPane();
     public Timer timer;
     public int counter;
-    private Boolean activeGame = false;
+
 
     public Snake(String title) {
         super(title);
@@ -35,8 +35,8 @@ public class Snake extends JFrame {
         mNewGame.add(mi500x500);
 
         mi500x500.addActionListener((ActionEvent e) -> {
-            if(!activeGame) {
-                activeGame = true;
+            if(!Board.activeGame) {
+                Board.activeGame = true;
                 board = new Board();
                 c.add(board);
                 c.revalidate();

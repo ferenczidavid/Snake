@@ -17,6 +17,8 @@ public class Board extends JPanel implements KeyListener {
     public int SEGMENT_SIZE = 10;
     public int TD = 100;
 
+    public static Boolean activeGame = false;
+
     public int x[] = new int[HEIGHT * WIDTH];
     public int y[] = new int[HEIGHT * WIDTH];
 
@@ -227,6 +229,7 @@ public class Board extends JPanel implements KeyListener {
         if (!this.isAlive) {
             timer.stop();
         }
+        activeGame = false;
     }
 
     @Override
