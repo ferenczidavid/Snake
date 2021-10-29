@@ -1,4 +1,4 @@
-package Snake;
+package main.Snake;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -136,7 +136,7 @@ public class Board extends JPanel implements KeyListener {
     }
 
 
-      private void msgbox(String s) {
+     private void msgbox(String s) {
         JOptionPane.showMessageDialog(null, s);
     }
 
@@ -179,6 +179,10 @@ public class Board extends JPanel implements KeyListener {
             SpaceNotEmpty = StillGood;
         }
 
+    }
+
+    public int sum(int a, int b){
+        return a + b;
     }
 
 

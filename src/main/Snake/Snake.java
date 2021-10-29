@@ -1,4 +1,4 @@
-package Snake;
+package main.Snake;
 
 import java.awt.Container;
 import java.awt.Font;
